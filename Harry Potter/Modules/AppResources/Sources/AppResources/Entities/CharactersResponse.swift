@@ -26,26 +26,26 @@ public enum House: String, Decodable {
 
 // MARK: - CharacterResponse
 public struct CharacterResponse: Decodable, Hashable {
-    let id: String?
-    let name: String?
-    let alternateNames: [String]?
-    let species: String?
-    let gender: Gender?
-    let house: House?
-    let dateOfBirth: String?
-    let yearOfBirth: Int?
-    let wizard: Bool?
-    let ancestry: String?
-    let eyeColour: String?
-    let hairColour: String?
-    let wand: Wand?
-    let patronus: String?
-    let hogwartsStudent: Bool?
-    let hogwartsStaff: Bool?
-    let actor: String?
-    let alternateActors: [String]?
-    let alive: Bool?
-    let image: String?
+   public let id: String?
+   public let name: String?
+   public let alternateNames: [String]?
+   public let species: String?
+   public let gender: Gender?
+   public let house: House?
+   public let dateOfBirth: String?
+   public let yearOfBirth: Int?
+   public let wizard: Bool?
+   public let ancestry: String?
+   public let eyeColour: String?
+   public let hairColour: String?
+   public let wand: Wand?
+   public let patronus: String?
+   public let hogwartsStudent: Bool?
+   public let hogwartsStaff: Bool?
+   public let actor: String?
+   public let alternateActors: [String]?
+   public let alive: Bool?
+   public let image: String?
     
     enum CodingKeys: String, CodingKey {
         case id

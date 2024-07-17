@@ -32,8 +32,9 @@ public class HomeViewController: BaseViewController {
         super.viewDidLoad()
         viewModel.delegate = self
         viewModel.fetchData()
-        configureDataSource()
+        configureCollectionView()
     }
+
     
     // MARK: - Module init
     public init() {
@@ -52,9 +53,6 @@ extension HomeViewController: HomeViewModelDelegate {
         applySnapshot()
     }
     
-//    func getData(data: [CharacterResponse]) {
-//        print(data[0])
-//    }
 }
 
 // MARK: - Diffable Data Source
@@ -65,6 +63,7 @@ private extension HomeViewController {
             switch sectionType {
             case .characters:
                 let cell = collectionView.dequeueReusableCell(with: CharacterCollectionViewCell.self, for: indexPath)
+    
                 cell.viewModel = CharacterViewModel(character: character)
                 return cell
             }
@@ -78,8 +77,42 @@ private extension HomeViewController {
         }
         let characters = viewModel.characters
         snapshot.appendItems(characters, toSection: .characters)
-
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
 
+// MARK: - Compositional Layout
+private extension HomeViewController {
+    final func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { [weak self] (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            guard let self,
+                  let sectionType = HomeScreenSectionType(rawValue: sectionIndex) else { return nil }
+            switch sectionType {
+            case .characters:
+                return createCharactersSection()
+            }
+        }
+    }
+    
+    final func createCharactersSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(200))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),  heightDimension: .estimated(200))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        
+        return section
+    }
+    
+}
+
+private extension HomeViewController {
+    final func configureCollectionView() {
+        configureDataSource()
+        collectionView.register(cellType: CharacterCollectionViewCell.self, bundle: Bundle.module)
+        collectionView.collectionViewLayout = createCompositionalLayout()
+    }
+}
