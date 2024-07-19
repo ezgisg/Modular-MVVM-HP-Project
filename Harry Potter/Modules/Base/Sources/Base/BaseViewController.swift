@@ -48,7 +48,7 @@ extension BaseViewController: BaseViewControllerProtocol {
 
 //MARK: Keyboard operations
 ///When keyboard is active then other tap properties disabled and when tap anywhere else but keyboard then keyboard hide
-extension BaseViewController {
+public extension BaseViewController {
     final func setupKeyboardObservers() {
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

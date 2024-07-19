@@ -37,6 +37,7 @@ public class HomeViewController: BaseViewController {
         configureCollectionView()
         searchBar.delegate = self
         configureEmptyView()
+        setupKeyboardObservers()
     }
 
     
