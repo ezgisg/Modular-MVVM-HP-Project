@@ -31,6 +31,7 @@ open class BaseViewController: UIViewController, LoadingShowable {
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
 }
 
 // MARK: - BaseViewController: BaseViewControllerProtocol

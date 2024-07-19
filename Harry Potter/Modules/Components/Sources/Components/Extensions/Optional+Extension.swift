@@ -21,5 +21,13 @@ public extension Optional where Wrapped == String {
         }
         return self
     }
+    
+    func value(or default: String) -> String {
+        guard let self,
+            !self.isEmpty else {
+            return `default`
+        }
+        return self
+    }
 }
 

@@ -14,6 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Base"),
+        .package(path: "../Detail"),
         .package(path: "../Network"),
     ],
     targets: [
@@ -23,6 +24,7 @@ let package = Package(
             name: "Home",
             dependencies: [
                 "Base",
+                "Detail",
                 "Network",
             ]),
         .testTarget(
